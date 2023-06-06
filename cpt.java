@@ -7,16 +7,15 @@ public class cpt{
 		
 		int intCount = 52;
 		int intDeck[][];
-		intDeck = deckArray(intCount);
-
 		String strDeck[][];
 		String strSortedDeck[][];
 		
+		intDeck = deckArray(intCount);
 		strDeck = loadDeck(intCount);
 		strSortedDeck = sortDeck(strDeck, intCount);
 		printDeck(strSortedDeck, intCount, con);
 		
-		
+		BufferedImage imgMenu = loadImage("menu.png");
 		
 	}
 	// deck array
@@ -130,7 +129,7 @@ public class cpt{
 		
 		for(intCount = 0; intCount < 52; intCount++){
 			txtSorted.print(strDeck[intCount][0] + " - ");
-			txtSorted.print(strDeck[intCount][1] + " = ");
+			txtSorted.print(strDeck[intCount][1] + " - ");
 			txtSorted.print(strDeck[intCount][2]);
 			txtSorted.println(" ");
 		}
