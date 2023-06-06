@@ -16,11 +16,11 @@ public class cpt{
 		strSortedDeck = sortDeck(strDeck, intCount);
 		printDeck(strSortedDeck, intCount, con);
 		
+		
+		
 	}
-		
+	// deck array
 	public static int[][] deckArray(int intCount){
-		
-		// Making deck
 		TextOutputFile txtText = new TextOutputFile("text.txt",false);
 		
 		int intDeck[][];
@@ -56,7 +56,7 @@ public class cpt{
 		}
 		
 		intCount = 0;
-		for(intRow = 0; intRow < intCount; intRow+=13){
+		for(intRow = 0; intRow < 52; intRow+=13){
 			intDeck[intRow][1] = intCount;
 			intDeck[intRow+1][1] = intCount;
 			intDeck[intRow+2][1] = intCount;
@@ -73,15 +73,11 @@ public class cpt{
 			//con.println(intRow);
 			intCount = intCount+1;
 		}
-		intCount = 51;
+		intCount = 52;
 		for(intRow = 0; intRow < intCount; intRow++){
-			//txtText.print((intRow+1) +" : ");
-			txtText.print(intDeck[intRow][2]);
-			txtText.print(" - ");
-			txtText.print(intDeck[intRow][0]);
-			txtText.print(" - ");
-			txtText.print(intDeck[intRow][1]);
-			txtText.println(" ");
+			txtText.println(intDeck[intRow][0]);
+			txtText.println(intDeck[intRow][1]);
+			txtText.println(intDeck[intRow][2]);
 		}
 		
 		return intDeck;
@@ -90,10 +86,10 @@ public class cpt{
 	
 	public static String[][] loadDeck(int intCount){
 		String strDeck[][];
-		strDeck = new String[intCount][2];
+		strDeck = new String[intCount][3];
 		TextInputFile txtText = new TextInputFile("text.txt");
 		int intRow;
-		for(intRow = 0; intRow < 51; intRow++){
+		for(intRow = 0; intRow < intCount; intRow++){
 			strDeck[intRow][0] = txtText.readLine();
 			strDeck[intRow][1] = txtText.readLine();
 			strDeck[intRow][2] = txtText.readLine();
@@ -130,10 +126,13 @@ public class cpt{
 	}
 	public static void printDeck(String strDeck[][], int intCount, Console con){
 		TextOutputFile txtSorted = new TextOutputFile("sorteddeck.txt");
-		int intCards = 51;
+		int intCards = 52;
 		
-		for(intCount = 0; intCount < 51; intCount++){
+		for(intCount = 0; intCount < 52; intCount++){
 			txtSorted.print(strDeck[intCount][0] + " - ");
+			txtSorted.print(strDeck[intCount][1] + " = ");
+			txtSorted.print(strDeck[intCount][2]);
+			txtSorted.println(" ");
 		}
 	}
 
