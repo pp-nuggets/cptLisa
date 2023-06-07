@@ -1,12 +1,17 @@
 
 import arc.*;
+import java.awt.image.BufferedImage;
+import java.awt.Color;
 
 public class cpt{
 	public static void main(String[] args){
 		Console con = new Console("Online Poker", 1280,720);
 		
+		// Deck stuff
 		int intCount = 52;
+		int intRow;
 		int intDeck[][];
+		int intHand[][];
 		String strDeck[][];
 		String strSortedDeck[][];
 		
@@ -15,9 +20,62 @@ public class cpt{
 		strSortedDeck = sortDeck(strDeck, intCount);
 		printDeck(strSortedDeck, intCount, con);
 		
-		BufferedImage imgMenu = loadImage("menu.png");
+		TextOutputFile txtHand = new TextOutputFile("playerhand.txt",false);
+		intHand = hand(strSortedDeck);
+		for(intRow = 1; intRow < 5; intRow++){ 
+			txtHand.println(intHand[intRow][0]);
+		}
+		//
+		
+		// User interface
+		String strChoice;
+		char chrChoice;
+		BufferedImage imgMenu = con.loadImage("menu.png");
+		String strName;
+		
+		con.println("Enter name:");
+		strName = con.readLine();
+		
+		con.drawImage(imgMenu,320,150);
+		con.println("Select an Option:");
+		//strChoice = con.readLine();
+		chrChoice = con.readChar();
+		menu(chrChoice,con);
+		
 		
 	}
+	
+	public static void menu(char chrChoice,Console con){
+		int intCount = 1;
+		
+		if(chrChoice == 'p' || chrChoice == 'P'){
+			con.println("play");
+			while(intCount  < 60){
+				intCount = intCount+1;
+				con.sleep(30);
+			}
+			play(con);
+		}else if(chrChoice == 'h' || chrChoice == 'P'){
+			con.println("highscores");
+		}else if(chrChoice == 'q' || chrChoice == 'Q'){
+			con.println("quit");
+		}else if(chrChoice == 'h' || chrChoice == 'H'){
+			con.println("help");
+		}else{
+			con.println("Enter p or h or q or e to make option.");
+		}
+	
+		
+	}
+	
+	public static void play(Console con){
+		con.clear();
+		
+		con.println("Here are your cards");
+		
+		
+	}
+	
 	// deck array
 	public static int[][] deckArray(int intCount){
 		TextOutputFile txtText = new TextOutputFile("text.txt",false);
@@ -133,6 +191,19 @@ public class cpt{
 			txtSorted.print(strDeck[intCount][2]);
 			txtSorted.println(" ");
 		}
+	}
+	
+	public static int[][] hand(String strDeck[][]){
+		int intHand[][];
+		int intCount;
+		intHand = new int[5][3];
+				
+		for(intCount = 0; intCount < 5; intCount++){
+			intHand[intCount][0] = Integer.valueOf(strDeck[intCount][0]);
+			intHand[intCount][1] = Integer.valueOf(strDeck[intCount][1]);
+		}
+		
+	return intHand;
 	}
 
 }
