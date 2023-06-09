@@ -20,15 +20,12 @@ public class cpt{
 		strSortedDeck = sortDeck(strDeck, intCount);
 		printDeck(strSortedDeck, intCount, con);
 		
-		TextOutputFile txtHand = new TextOutputFile("playerhand.txt",false);
+		
 		intHand = hand(strSortedDeck);
-		for(intRow = 1; intRow < 5; intRow++){ 
-			txtHand.println(intHand[intRow][0]);
-		}
+		
 		//
 		
 		// User interface
-		String strChoice;
 		char chrChoice;
 		BufferedImage imgMenu = con.loadImage("menu.png");
 		String strName;
@@ -38,15 +35,9 @@ public class cpt{
 		
 		con.drawImage(imgMenu,320,150);
 		con.println("Select an Option:");
-		//strChoice = con.readLine();
 		chrChoice = con.readChar();
-		menu(chrChoice,con);
 		
-		
-	}
-	
-	public static void menu(char chrChoice,Console con){
-		int intCount = 1;
+		intCount = 1;
 		
 		if(chrChoice == 'p' || chrChoice == 'P'){
 			con.println("play");
@@ -54,7 +45,7 @@ public class cpt{
 				intCount = intCount+1;
 				con.sleep(30);
 			}
-			play(con);
+			play(intHand, con);
 		}else if(chrChoice == 'h' || chrChoice == 'P'){
 			con.println("highscores");
 		}else if(chrChoice == 'q' || chrChoice == 'Q'){
@@ -64,16 +55,131 @@ public class cpt{
 		}else{
 			con.println("Enter p or h or q or e to make option.");
 		}
-	
-		
 	}
-	
-	public static void play(Console con){
+
+	// Player hand
+	public static void play(int intHand[][], Console con){
 		con.clear();
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0,0,1280,720);
+		int intRow;
+		TextOutputFile txtHand = new TextOutputFile("playerhand.txt",false);
 		
 		con.println("Here are your cards");
 		
+		for(intRow = 0; intRow < 5; intRow++){ 
+			txtHand.println(intHand[intRow][0]);
+			txtHand.println(intHand[intRow][1]);
+			//con.println("");
+			if(intHand[intRow][0] == 1){
+				con.print("Ace ");
+			}else if(intHand[intRow][0] == 2){
+				con.print("Two ");
+			}else if(intHand[intRow][0] == 3){
+				con.print("Three ");
+			}else if(intHand[intRow][0] == 4){
+				con.print("Four ");
+			}else if(intHand[intRow][0] == 5){
+				con.print("Five ");
+			}else if(intHand[intRow][0] == 6){
+				con.print("Six ");
+			}else if(intHand[intRow][0] == 7){
+				con.print("Seven ");
+			}else if(intHand[intRow][0] == 8){
+				con.print("Eight ");
+			}else if(intHand[intRow][0] == 9){
+				con.print("Nine ");
+			}else if(intHand[intRow][0] == 10){
+				con.print("Ten ");
+			}else if(intHand[intRow][0] == 11){
+				con.print("Jack ");
+			}else if(intHand[intRow][0] == 12){
+				con.print("Queen ");
+			}else if(intHand[intRow][0] == 13){
+				con.print("King ");
+			}
+			
+			if(intHand[intRow][1] == 0){
+				con.println("of Diamonds");
+			}else if(intHand[intRow][1] == 1){
+				con.println("of Clubs");
+			}else if(intHand[intRow][1] == 2){
+				con.println("of Hearts");
+			}else if(intHand[intRow][1] == 3){
+				con.println("of Spades");
+			}
+			loadCards(intHand[intRow][0], intHand[intRow][1], con);
+		}
+	}
+	
+	public static void loadCards(int intCard, int intCardSuite, Console con){
+		con.println("Cards Loaded here");
+		con.setDrawColor(Color.WHITE);
+		con.fillRect(0,400,1280,350);
 		
+		// load all 52 iamge cards
+		
+		if(intSuite == 0){
+			if(intCard == 1){
+				con.println("Ace of diamonds");
+				//con.loadImage
+			}else if(intCard == 2){
+				con.println("Two of diamonds");
+			}else if(intCard == 3){
+				con.println("Three of diamonds");
+			}else if(intCard == 4){
+				con.println("Four of diamonds");
+			}else if(intCard == 5){
+				con.println("Five of diamonds");
+			}else if(intCard == 6){
+				con.println("Six of diamonds");
+			}else if(intCard == 7){
+				con.println("Seven of diamonds");
+			}else if(intCard == 8){
+				con.println("Eight of diamonds");
+			}else if(intCard == 9){
+				con.println("Nine of diamonds");
+			}else if(intCard == 10){
+				con.println("Ten of diamonds");
+			}else if(intCard == 11){
+				con.println("Jack of diamonds");
+			}else if(intCard == 12){
+				con.println("Queen of diamonds");
+			}else if(intCard == 13){
+				con.println("King of diamonds");
+			}
+			
+		}else if(intSuite == 1){
+			if(intCard == 1){
+				con.println("Ace of clubs");
+				//con.loadImage
+			}else if(intCard == 2){
+				con.println("Two of clubs");
+			}else if(intCard == 3){
+				con.println("Three of clubs");
+			}else if(intCard == 4){
+				con.println("Four of clubs");
+			}else if(intCard == 5){
+				con.println("Five of clubs");
+			}else if(intCard == 6){
+				con.println("Six of clubs");
+			}else if(intCard == 7){
+				con.println("Seven of clubs");
+			}else if(intCard == 8){
+				con.println("Eight of clubs");
+			}else if(intCard == 9){
+				con.println("Nine of clubs");
+			}else if(intCard == 10){
+				con.println("Ten of clubs");
+			}else if(intCard == 11){
+				con.println("Jack of clubs");
+			}else if(intCard == 12){
+				con.println("Queen of clubs");
+			}else if(intCard == 13){
+				con.println("King of clubs");
+			}
+			
+		}
 	}
 	
 	// deck array
