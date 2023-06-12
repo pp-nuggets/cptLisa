@@ -12,6 +12,7 @@ public class cpt{
 		int intRow;
 		int intDeck[][];
 		int intHand[][];
+		int intSortedHand[][];
 		String strDeck[][];
 		String strSortedDeck[][];
 		
@@ -22,6 +23,8 @@ public class cpt{
 		
 		
 		intHand = hand(strSortedDeck);
+		intSortedHand = sortHand(intHand,intCount);
+		printSortedhand(intSortedHand, con);
 		
 		//
 		
@@ -37,11 +40,11 @@ public class cpt{
 		con.println("Select an Option:");
 		chrChoice = con.readChar();
 		
-		intCount = 1;
+		int intCount1 = 1;
 		
 		if(chrChoice == 'p' || chrChoice == 'P'){
 			con.println("play");
-			while(intCount  < 60){
+			while(intCount1 < 60){
 				intCount = intCount+1;
 				con.sleep(30);
 			}
@@ -55,6 +58,27 @@ public class cpt{
 		}else{
 			con.println("Enter p or h or q or e to make option.");
 		}
+		
+		int intSwitch;
+		int intSwitch2;
+		int intSwitch3;
+		int intSwitch4;
+		int intSwitch5;
+		String strChoice = "y";
+		con.clear();
+		while(strChoice.equals("y")){
+			//con.println("Enter 00 for null");
+			con.println("Choose card to switch");
+			intSwitch = con.readInt();
+			intHand = switchCards(intHand, intSwitch, strSortedDeck);
+			con.println("Choose another card? (y/n)");
+			strChoice = con.readLine();
+		}
+		
+		play(intHand, con);
+		
+		
+		
 	}
 
 	// Player hand
@@ -65,7 +89,7 @@ public class cpt{
 		int intRow;
 		TextOutputFile txtHand = new TextOutputFile("playerhand.txt",false);
 		
-		con.println("Here are your cards");
+		con.println("Here are your cards:");
 		
 		for(intRow = 0; intRow < 5; intRow++){ 
 			txtHand.println(intHand[intRow][0]);
@@ -110,6 +134,8 @@ public class cpt{
 			}
 			loadCards(intHand[intRow][0], intHand[intRow][1], con);
 		}
+		
+		
 	}
 	
 	public static void loadCards(int intCard, int intCardSuite, Console con){
@@ -119,7 +145,7 @@ public class cpt{
 		
 		// load all 52 iamge cards
 		
-		if(intSuite == 0){
+		if(intCardSuite == 0){
 			if(intCard == 1){
 				con.println("Ace of diamonds");
 				//con.loadImage
@@ -149,7 +175,7 @@ public class cpt{
 				con.println("King of diamonds");
 			}
 			
-		}else if(intSuite == 1){
+		}else if(intCardSuite == 1){
 			if(intCard == 1){
 				con.println("Ace of clubs");
 				//con.loadImage
@@ -179,7 +205,108 @@ public class cpt{
 				con.println("King of clubs");
 			}
 			
+		}else if(intCardSuite == 2){
+			if(intCard == 1){
+				con.println("Ace of hearts");
+				//con.loadImage
+			}else if(intCard == 2){
+				con.println("Two of hearts");
+			}else if(intCard == 3){
+				con.println("Three of hearts");
+			}else if(intCard == 4){
+				con.println("Four of hearts");
+			}else if(intCard == 5){
+				con.println("Five of hearts");
+			}else if(intCard == 6){
+				con.println("Six of hearts");
+			}else if(intCard == 7){
+				con.println("Seven of hearts");
+			}else if(intCard == 8){
+				con.println("Eight of hearts");
+			}else if(intCard == 9){
+				con.println("Nine of hearts");
+			}else if(intCard == 10){
+				con.println("Ten of hearts");
+			}else if(intCard == 11){
+				con.println("Jack of hearts");
+			}else if(intCard == 12){
+				con.println("Queen of hearts");
+			}else if(intCard == 13){
+				con.println("King of hearts");
+			}
+			
+		}else if(intCardSuite == 3){
+			if(intCard == 1){
+				con.println("Ace of spades");
+				//con.loadImage
+			}else if(intCard == 2){
+				con.println("Two of spades");
+			}else if(intCard == 3){
+				con.println("Three of spades");
+			}else if(intCard == 4){
+				con.println("Four of spades");
+			}else if(intCard == 5){
+				con.println("Five of spades");
+			}else if(intCard == 6){
+				con.println("Six of spades");
+			}else if(intCard == 7){
+				con.println("Seven of spades");
+			}else if(intCard == 8){
+				con.println("Eight of spades");
+			}else if(intCard == 9){
+				con.println("Nine of spades");
+			}else if(intCard == 10){
+				con.println("Ten of spades");
+			}else if(intCard == 11){
+				con.println("Jack of spades");
+			}else if(intCard == 12){
+				con.println("Queen of spades");
+			}else if(intCard == 13){
+				con.println("King of spades");
+			}
+			
 		}
+		int intCount = 1;
+		while(intCount < 60){
+			intCount = intCount+1;
+			con.sleep(30);
+		}
+	}
+	
+	public static int[][] switchCards(int intHand[][], int intSwitch, String strSortedDeck[][]){
+		
+		if(intSwitch == 0){
+			intHand[0][0] = Integer.valueOf(strSortedDeck[5][0]);
+			intHand[0][1] = Integer.valueOf(strSortedDeck[5][1]);
+		}
+		if(intSwitch == 1){
+			intHand[1][0] = Integer.valueOf(strSortedDeck[6][0]);
+			intHand[1][1] = Integer.valueOf(strSortedDeck[6][1]);
+		}
+		if(intSwitch == 2){
+			intHand[2][0] = Integer.valueOf(strSortedDeck[7][0]);
+			intHand[2][1] = Integer.valueOf(strSortedDeck[7][1]);
+		}
+		if(intSwitch == 3){
+			intHand[3][0] = Integer.valueOf(strSortedDeck[8][0]);
+			intHand[3][1] = Integer.valueOf(strSortedDeck[8][1]);
+		}
+		if(intSwitch == 4){
+			intHand[4][0] = Integer.valueOf(strSortedDeck[9][0]);
+			intHand[4][1] = Integer.valueOf(strSortedDeck[9][1]);
+		}
+		if(intSwitch == 5){
+			intHand[5][0] = Integer.valueOf(strSortedDeck[10][0]);
+			intHand[5][1] = Integer.valueOf(strSortedDeck[10][1]);
+		}
+		return intHand;
+		
+	}
+	
+	public static String checkHand(int intHand[][]){
+	
+	return "nothing";
+	
 	}
 	
 	// deck array
@@ -208,7 +335,7 @@ public class cpt{
 			intDeck[intRow+10][0] = 11;
 			intDeck[intRow+11][0] = 12;
 			intDeck[intRow+12][0] = 13;
-			//txtText.println(intDeck[intRow][0]);
+			System.out.println(intDeck[intRow][0]);
 			
 		}
 		
@@ -287,7 +414,37 @@ public class cpt{
 		}
 		return strDeck;
 	}
-	public static void printDeck(String strDeck[][], int intCount, Console con){
+	
+	// sorting player hand to check for wins
+	public static int[][] sortHand(int intHand[][], int intCount){
+		int intTemp;
+		int intCurrent;
+		int intBelow;
+		int intCounter;
+		int intCounter2;
+		int intSortedHand[][];
+		intSortedHand = new int[5][2];
+		
+		for(intCounter2 = 0; intCounter2 < intCount -1; intCounter2++){
+			for(intCounter = 0; intCounter < intCount - 1; intCounter++){
+				intCurrent = intHand[intCounter][2];
+				intBelow = intHand[intCounter+1][2];
+				if(intCurrent < intBelow){
+					intTemp = intHand[intCounter][2];
+					intHand[intCounter][2] = intHand[intCounter+1][2];
+					intHand[intCounter+1][2] = intTemp;
+					intTemp = intHand[intCounter][1];
+					intHand[intCounter][1] = intHand[intCounter+1][1];
+					intHand[intCounter+1][1] = intTemp;
+					intTemp = intHand[intCounter][0];
+					intHand[intCounter][0] = intHand[intCounter+1][0];
+					intHand[intCounter+1][0] = intTemp;
+				}
+			}
+		}
+		return intSortedHand;
+	}
+	public static void printSorteddeck(String strDeck[][], int intCount, Console con){
 		TextOutputFile txtSorted = new TextOutputFile("sorteddeck.txt");
 		int intCards = 52;
 		
@@ -296,6 +453,18 @@ public class cpt{
 			txtSorted.print(strDeck[intCount][1] + " - ");
 			txtSorted.print(strDeck[intCount][2]);
 			txtSorted.println(" ");
+		}
+	}
+	
+	public static void printSortedhand(int intSortedHand[][], Console con){
+		TextOutputFile txtSortedHand = new TextOutputFile("sortedhand.txt");
+		int intCount;
+		
+		for(intCount = 0; intCount < 5; intCount++){
+			txtSortedHand.print(intSortedHand[intCount][0] + " - ");
+			txtSortedHand.print(intSortedHand[intCount][1] + " - ");
+			//txtSortedhand.print(strSortedhand[intCount][2]);
+			txtSortedHand.println(" ");
 		}
 	}
 	
