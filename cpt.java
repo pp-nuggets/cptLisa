@@ -8,8 +8,8 @@ public class cpt{
 		Console con = new Console("Online Poker", 1280,720);
 	
 		TextOutputFile txtScore = new TextOutputFile("score.txt",false);
-		txtScore.println("2000");
-		
+		txtScore.println("1000");
+		txtScore.close();
 		
 		
 		String strName;
@@ -35,6 +35,7 @@ public class cpt{
 		TextInputFile txtScore = new TextInputFile("score.txt");
 		
 		intScore = txtScore.readInt();
+		txtScore.close();
 		
 		intDeck = deckArray(intCount);
 		strDeck = loadDeck(intCount);
@@ -113,13 +114,16 @@ public class cpt{
 		int intRow;
 		int intBet;
 		TextOutputFile txtHand = new TextOutputFile("playerhand.txt",false);
-		TextOutputFile txtScore = new TextOutputFile("scores.txt");
+		TextOutputFile txtScoreOut = new TextOutputFile("scores.txt");
+		
 		con.println("You have "+intScore);
 		con.println("Enter your bet");
 		intBet = con.readInt();
-		txtScore.println(intScore-intBet);
-		intScore = txtScore.readInt();
-		System.out.println(intScore);
+		txtScoreOut.println(intScore);
+		txtScoreOut.close();
+		TextInputFile txtScoreIn = new TextInputFile("scores.txt");
+		intScore = txtScoreIn.readInt();
+		//System.out.println(intScore);
 		
 		con.println("Here are your cards:");
 		
@@ -180,131 +184,11 @@ public class cpt{
 	public static void loadHand(int intCard, int intCardSuite, Console con){
 		con.println("Cards Loaded here");
 		con.setDrawColor(Color.WHITE);
-		con.fillRect(0,400,1280,350);
+		con.fillRect(700,100,350,450);
 		
 		// load all 52 iamge cards
+		cptimages.images(intCardSuite, intCard, con);
 		
-		if(intCardSuite == 0){
-			if(intCard == 1){
-				con.println("Ace of diamonds");
-				//con.loadImage
-			}else if(intCard == 2){
-				con.println("Two of diamonds");
-			}else if(intCard == 3){
-				con.println("Three of diamonds");
-			}else if(intCard == 4){
-				con.println("Four of diamonds");
-			}else if(intCard == 5){
-				con.println("Five of diamonds");
-			}else if(intCard == 6){
-				con.println("Six of diamonds");
-			}else if(intCard == 7){
-				con.println("Seven of diamonds");
-			}else if(intCard == 8){
-				con.println("Eight of diamonds");
-			}else if(intCard == 9){
-				con.println("Nine of diamonds");
-			}else if(intCard == 10){
-				con.println("Ten of diamonds");
-			}else if(intCard == 11){
-				con.println("Jack of diamonds");
-			}else if(intCard == 12){
-				con.println("Queen of diamonds");
-			}else if(intCard == 13){
-				con.println("King of diamonds");
-			}
-			
-		}else if(intCardSuite == 1){
-			if(intCard == 1){
-				con.println("Ace of clubs");
-				//con.loadImage
-			}else if(intCard == 2){
-				con.println("Two of clubs");
-			}else if(intCard == 3){
-				con.println("Three of clubs");
-			}else if(intCard == 4){
-				con.println("Four of clubs");
-			}else if(intCard == 5){
-				con.println("Five of clubs");
-			}else if(intCard == 6){
-				con.println("Six of clubs");
-			}else if(intCard == 7){
-				con.println("Seven of clubs");
-			}else if(intCard == 8){
-				con.println("Eight of clubs");
-			}else if(intCard == 9){
-				con.println("Nine of clubs");
-			}else if(intCard == 10){
-				con.println("Ten of clubs");
-			}else if(intCard == 11){
-				con.println("Jack of clubs");
-			}else if(intCard == 12){
-				con.println("Queen of clubs");
-			}else if(intCard == 13){
-				con.println("King of clubs");
-			}
-			
-		}else if(intCardSuite == 2){
-			if(intCard == 1){
-				con.println("Ace of hearts");
-				//con.loadImage
-			}else if(intCard == 2){
-				con.println("Two of hearts");
-			}else if(intCard == 3){
-				con.println("Three of hearts");
-			}else if(intCard == 4){
-				con.println("Four of hearts");
-			}else if(intCard == 5){
-				con.println("Five of hearts");
-			}else if(intCard == 6){
-				con.println("Six of hearts");
-			}else if(intCard == 7){
-				con.println("Seven of hearts");
-			}else if(intCard == 8){
-				con.println("Eight of hearts");
-			}else if(intCard == 9){
-				con.println("Nine of hearts");
-			}else if(intCard == 10){
-				con.println("Ten of hearts");
-			}else if(intCard == 11){
-				con.println("Jack of hearts");
-			}else if(intCard == 12){
-				con.println("Queen of hearts");
-			}else if(intCard == 13){
-				con.println("King of hearts");
-			}
-			
-		}else if(intCardSuite == 3){
-			if(intCard == 1){
-				con.println("Ace of spades");
-				//con.loadImage
-			}else if(intCard == 2){
-				con.println("Two of spades");
-			}else if(intCard == 3){
-				con.println("Three of spades");
-			}else if(intCard == 4){
-				con.println("Four of spades");
-			}else if(intCard == 5){
-				con.println("Five of spades");
-			}else if(intCard == 6){
-				con.println("Six of spades");
-			}else if(intCard == 7){
-				con.println("Seven of spades");
-			}else if(intCard == 8){
-				con.println("Eight of spades");
-			}else if(intCard == 9){
-				con.println("Nine of spades");
-			}else if(intCard == 10){
-				con.println("Ten of spades");
-			}else if(intCard == 11){
-				con.println("Jack of spades");
-			}else if(intCard == 12){
-				con.println("Queen of spades");
-			}else if(intCard == 13){
-				con.println("King of spades");
-			}
-			
-		}
 		int intCount = 1;
 		while(intCount < 100){
 			intCount = intCount+1;
