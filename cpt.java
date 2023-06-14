@@ -6,15 +6,35 @@ import java.awt.Color;
 public class cpt{
 	public static void main(String[] args){
 		Console con = new Console("Online Poker", 1280,720);
+	
+		TextOutputFile txtScore = new TextOutputFile("score.txt",false);
+		txtScore.println("2000");
 		
+		
+		
+		String strName;
+		
+		con.println("Enter name:");
+		strName = con.readLine();
+		
+		menu(con);
+		 
+		 
+		 
+	}
+	public static void menu(Console con){
 		// Deck stuff
 		int intCount = 52;
+		int intScore;
 		int intRow;
 		int intDeck[][];
 		int intHand[][];
 		int intSortedHand[][];
 		String strDeck[][];
 		String strSortedDeck[][];
+		TextInputFile txtScore = new TextInputFile("score.txt");
+		
+		intScore = txtScore.readInt();
 		
 		intDeck = deckArray(intCount);
 		strDeck = loadDeck(intCount);
@@ -24,15 +44,14 @@ public class cpt{
 		intHand = hand(strSortedDeck);
 		
 		
+		
 		//
+
 		
 		// User interface
 		char chrChoice;
 		BufferedImage imgMenu = con.loadImage("menu.png");
-		String strName;
 		
-		con.println("Enter name:");
-		strName = con.readLine();
 		
 		con.drawImage(imgMenu,320,150);
 		con.println("Select an Option:");
@@ -49,7 +68,7 @@ public class cpt{
 				con.sleep(30);
 				
 			}
-			play(intHand, con);
+			play(intHand,intScore, con);
 		}else if(chrChoice == 'h' || chrChoice == 'H'){
 			con.println("highscores");
 		}else if(chrChoice == 'q' || chrChoice == 'Q'){
@@ -87,12 +106,20 @@ public class cpt{
 	}
 
 	// Player hand
-	public static void play(int intHand[][], Console con){
+	public static void play(int intHand[][], int intScore, Console con){
 		con.clear();
 		con.setDrawColor(Color.BLACK);
 		con.fillRect(0,0,1280,720);
 		int intRow;
+		int intBet;
 		TextOutputFile txtHand = new TextOutputFile("playerhand.txt",false);
+		TextOutputFile txtScore = new TextOutputFile("scores.txt");
+		con.println("You have "+intScore);
+		con.println("Enter your bet");
+		intBet = con.readInt();
+		txtScore.println(intScore-intBet);
+		intScore = txtScore.readInt();
+		System.out.println(intScore);
 		
 		con.println("Here are your cards:");
 		
@@ -141,6 +168,12 @@ public class cpt{
 			loadHand(intHand[intRow][0], intHand[intRow][1], con);
 		}
 		
+		
+	}
+	
+	public static void highscore(Console con){
+		
+		TextInputFile txtScore = new TextInputFile("scores.txt");
 		
 	}
 	
@@ -505,5 +538,17 @@ public class cpt{
 		
 	return intHand;
 	}
+	
+	public static void printScore(String strName, int intBet, Console con){
+	TextOutputFile txtHighscore = new TextOutputFile("highscore.txt");
+	TextInputFile txtScore = new TextInputFile("scores.txt");
+	int intScore;
+	intScore = txtScore.readInt();
+		
+	txtHighscore.println(strName);
+	txtHighscore.println(intScore);
+
+	}
+	
 
 }
