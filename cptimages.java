@@ -8,5 +8,8 @@ public class cptimages{
 	
 	}
 	
-	pu
+	public static void images(int intSortedHand[][], Console con){
+		
+		
+	}
 }
