@@ -6,6 +6,10 @@ import java.awt.Color;
 public class cpt{
 	public static void main(String[] args){
 		Console con = new Console("Online Poker", 1280,720);
+		
+		BufferedImage imgBG = con.loadImage("bg1.jpg");
+		
+		con.drawImage(imgBG,1,1);
 	
 		TextOutputFile txtScore = new TextOutputFile("score.txt",false);
 		txtScore.println("1000");
@@ -17,15 +21,14 @@ public class cpt{
 		con.println("Enter name:");
 		strName = con.readLine();
 		
-		menu(con);
+		menu(1000, con);
 		 
 		 
 		 
 	}
-	public static void menu(Console con){
+	public static void menu(int intScore,Console con){
 		// Deck stuff
 		int intCount = 52;
-		int intScore;
 		int intRow;
 		int intDeck[][];
 		int intHand[][];
@@ -33,8 +36,9 @@ public class cpt{
 		String strDeck[][];
 		String strSortedDeck[][];
 		TextInputFile txtScore = new TextInputFile("score.txt");
+		BufferedImage imgBG = con.loadImage("bg1.jpg");
 		
-		intScore = txtScore.readInt();
+		//intScore = txtScore.readInt();
 		txtScore.close();
 		
 		intDeck = deckArray(intCount);
@@ -51,6 +55,7 @@ public class cpt{
 		
 		// User interface
 		char chrChoice;
+		int intBet;
 		BufferedImage imgMenu = con.loadImage("menu.png");
 		
 		
@@ -69,6 +74,11 @@ public class cpt{
 				con.sleep(30);
 				
 			}
+			con.println("You have "+intScore);
+			con.println("Enter your bet");
+			intBet = con.readInt();
+			//make text folder for bet
+			con.drawImage(imgBG,1,1);
 			play(intHand,intScore, con);
 		}else if(chrChoice == 'h' || chrChoice == 'H'){
 			con.println("highscores");
@@ -89,36 +99,39 @@ public class cpt{
 		int intSwitch4;
 		int intSwitch5;
 		String strChoice = "y";
-		con.clear();
+		//con.clear();
 		//con.println("0 = " + 
 		while(strChoice.equals("y")){
 			//con.println("Enter 00 for null");
 			con.println("Choose card to switch");
 			intSwitch = con.readInt();
+			//enter 00 for no cards switch
 			intHand = switchCards(intHand, intSwitch, strSortedDeck);
 			con.println("Choose another card? (y/n)");
 			strChoice = con.readLine();
 		}
 		
-		//play(intHand, con);
-		
-		
-		
+		play(intHand, intScore, con);
+		intSortedHand = sortHand(intHand,5);
+		printSortedhand(intSortedHand,con);
+		con.println("checking hand");
+		int intTimes;
+		intTimes = checkHand(intSortedHand, con);
+		//win or lose if statement
+		//read bet textfolder for bet
+		win(intBet, intTimes, con);
 	}
 
 	// Player hand
 	public static void play(int intHand[][], int intScore, Console con){
 		con.clear();
-		con.setDrawColor(Color.BLACK);
-		con.fillRect(0,0,1280,720);
+		//con.setDrawColor(Color.BLACK);
+		//con.fillRect(0,0,1280,720);
 		int intRow;
-		int intBet;
 		TextOutputFile txtHand = new TextOutputFile("playerhand.txt",false);
 		TextOutputFile txtScoreOut = new TextOutputFile("scores.txt");
 		
-		con.println("You have "+intScore);
-		con.println("Enter your bet");
-		intBet = con.readInt();
+		
 		txtScoreOut.println(intScore);
 		txtScoreOut.close();
 		TextInputFile txtScoreIn = new TextInputFile("scores.txt");
@@ -132,6 +145,7 @@ public class cpt{
 			txtHand.println(intHand[intRow][1]);
 			txtHand.println(intHand[intRow][2]);
 			//con.println("");
+			loadHand(intHand[intRow][0], intHand[intRow][1], con);
 			if(intHand[intRow][0] == 1){
 				con.print("Ace ");
 			}else if(intHand[intRow][0] == 2){
@@ -169,7 +183,7 @@ public class cpt{
 			}else if(intHand[intRow][1] == 3){
 				con.println("of Spades");
 			}
-			loadHand(intHand[intRow][0], intHand[intRow][1], con);
+			
 		}
 		
 		
@@ -182,18 +196,16 @@ public class cpt{
 	}
 	
 	public static void loadHand(int intCard, int intCardSuite, Console con){
-		con.println("Cards Loaded here");
-		con.setDrawColor(Color.WHITE);
-		con.fillRect(700,100,350,450);
+		//con.println("Cards Loaded here");
 		
 		// load all 52 iamge cards
 		cptimages.images(intCardSuite, intCard, con);
 		
 		int intCount = 1;
-		while(intCount < 100){
-			intCount = intCount+1;
-			con.sleep(30);
-		}
+		//while(intCount < 100){
+		//	intCount = intCount+1;
+		//	con.sleep(30);
+		//}
 	}
 	
 	public static int[][] switchCards(int intHand[][], int intSwitch, String strSortedDeck[][]){
@@ -226,10 +238,76 @@ public class cpt{
 		
 	}
 	
-	public static String checkHand(int intHand[][]){
+	public static int checkHand(int intSortedHand[][], Console con){
+		int intRow = 0;
+		
+		for(intRow = 0; intRow < 3; intRow++){
+			//check for triple
+			if(intSortedHand[intRow][0] == 11 && intSortedHand[intRow+1][0] == 11 && intSortedHand[intRow+2][0] == 11){
+				//triple jacks
+				con.println("triple jacks");
+				return 1;
+			}else if(intSortedHand[intRow][0] == 12 && intSortedHand[intRow+1][0] == 12 && intSortedHand[intRow+2][0] == 12){
+				//double queens
+				con.println("triple queens");
+				return 2;
+			}else if(intSortedHand[intRow][0] == 13 && intSortedHand[intRow+1][0] == 13 && intSortedHand[intRow+2][0] == 13){
+				//double king
+				con.println("triple kings");
+				return 3;
+			}else if(intSortedHand[intRow][0] == 1 && intSortedHand[intRow+1][0] == 1 && intSortedHand[intRow+2][0] == 1){
+				//double aces
+				con.println("double aces");
+				return 4;
+			}
+		}
+		
+		for(intRow = 0; intRow < 4; intRow++){
+			
+			//check for doubles
+			if(intSortedHand[intRow][0] == 11 && intSortedHand[intRow+1][0] == 11){
+				//double jacks
+				con.println("double jacks");
+				return 5;
+			}else if(intSortedHand[intRow][0] == 12 && intSortedHand[intRow+1][0] == 12){
+				//double queens
+				con.println("double queens");
+				return 5;
+			}else if(intSortedHand[intRow][0] == 13 && intSortedHand[intRow+1][0] == 13){
+				//double king
+				con.println("double kings");
+				return 5;
+			}else if(intSortedHand[intRow][0] == 1 && intSortedHand[intRow+1][0] == 1){
+				//double aces
+				con.println("double aces");
+				return 5;
+			}
+			
+			
+		}
+		
+		
+		con.println("lose win thing");
+		return 0;
+	}
 	
-	return "nothing";
+	public static void win(int intBet, int intTimes, Console con){
+		int intScore;
+		TextInputFile txtScore = new TextInputFile("score.txt");
+		intScore = txtScore.readInt();
+		
+		intScore = intBet*intTimes + intScore;
+		con.println("Your score is: " +intScore);
+		int intCount = 0;
+		while(intCount < 60){
+			intCount = intCount +1;
+			con.sleep(30);
+		}
+		menu(intScore,con);
+	}
 	
+	public static void lose(int intBet, Console con){
+		
 	}
 	
 	// deck array
@@ -362,17 +440,17 @@ public class cpt{
 		
 		for(intCounter2 = 0; intCounter2 < intCount -1; intCounter2++){
 			for(intCounter = 0; intCounter < intCount - 1; intCounter++){
-				intCurrent = intHand[intCounter][2];
-				intBelow = intHand[intCounter+1][2];
+				intCurrent = intHand[intCounter][0];
+				intBelow = intHand[intCounter+1][0];
 				System.out.println("Cureent is: "+intCurrent);
 				System.out.println("below is "+intBelow);
 				if(intCurrent < intBelow){
-					intTemp = intHand[intCounter][2];
-					intHand[intCounter][2] = intHand[intCounter+1][2];
-					intHand[intCounter+1][2] = intTemp;
-					intTemp = intHand[intCounter][2];
-					intHand[intCounter][2] = intHand[intCounter+1][2];
-					intHand[intCounter+1][2] = intTemp;
+					intTemp = intHand[intCounter][0];
+					intHand[intCounter][0] = intHand[intCounter+1][0];
+					intHand[intCounter+1][0] = intTemp;
+					intTemp = intHand[intCounter][0];
+					intHand[intCounter][0] = intHand[intCounter+1][0];
+					intHand[intCounter+1][0] = intTemp;
 					intTemp = intHand[intCounter][0];
 					intHand[intCounter][0] = intHand[intCounter+1][0];
 					intHand[intCounter+1][0] = intTemp;

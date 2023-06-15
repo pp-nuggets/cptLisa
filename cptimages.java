@@ -2,6 +2,7 @@
 
 import arc.*;
 import java.awt.image.BufferedImage;
+import java.awt.Color;
 
 public class cptimages{
 	public static void main(String[] args){
@@ -10,6 +11,9 @@ public class cptimages{
 	}
 	
 	public static void images(int intCardSuite, int intCard, Console con){
+		//con.setDrawColor(Color.WHITE);
+		//con.fillRect(700,100,350,450);
+		
 		BufferedImage img1h = con.loadImage("1h.jpg");
 		BufferedImage img1s = con.loadImage("1s.jpg");
 		BufferedImage img1c = con.loadImage("1c.jpg");
@@ -122,92 +126,92 @@ public class cptimages{
 			
 		}else if(intCardSuite == 1){
 			if(intCard == 1){
-				con.println("Ace of clubs");
+				con.drawImage(img1c,intX,intY);
 				//con.loadImage
 			}else if(intCard == 2){
-				con.println("Two of clubs");
+				con.drawImage(img2c,intX,intY);
 			}else if(intCard == 3){
-				con.println("Three of clubs");
+				con.drawImage(img3c,intX,intY);
 			}else if(intCard == 4){
-				con.println("Four of clubs");
+				con.drawImage(img4c,intX,intY);
 			}else if(intCard == 5){
-				con.println("Five of clubs");
+				con.drawImage(img5c,intX,intY);
 			}else if(intCard == 6){
-				con.println("Six of clubs");
+				con.drawImage(img6c,intX,intY);
 			}else if(intCard == 7){
-				con.println("Seven of clubs");
+				con.drawImage(img7c,intX,intY);
 			}else if(intCard == 8){
-				con.println("Eight of clubs");
+				con.drawImage(img8c,intX,intY);
 			}else if(intCard == 9){
-				con.println("Nine of clubs");
+				con.drawImage(img9c,intX,intY);
 			}else if(intCard == 10){
-				con.println("Ten of clubs");
+				con.drawImage(img10c,intX,intY);
 			}else if(intCard == 11){
-				con.println("Jack of clubs");
+				con.drawImage(img11c,intX,intY);
 			}else if(intCard == 12){
-				con.println("Queen of clubs");
+				con.drawImage(img12c,intX,intY);
 			}else if(intCard == 13){
-				con.println("King of clubs");
+				con.drawImage(img13c,intX,intY);
 			}
 			
 		}else if(intCardSuite == 2){
 			if(intCard == 1){
-				con.println("Ace of hearts");
+				con.drawImage(img1h,intX,intY);
 				//con.loadImage
 			}else if(intCard == 2){
-				con.println("Two of hearts");
+				con.drawImage(img2h,intX,intY);
 			}else if(intCard == 3){
-				con.println("Three of hearts");
+				con.drawImage(img3h,intX,intY);
 			}else if(intCard == 4){
-				con.println("Four of hearts");
+				con.drawImage(img4h,intX,intY);
 			}else if(intCard == 5){
-				con.println("Five of hearts");
+				con.drawImage(img5h,intX,intY);
 			}else if(intCard == 6){
-				con.println("Six of hearts");
+				con.drawImage(img6h,intX,intY);
 			}else if(intCard == 7){
-				con.println("Seven of hearts");
+				con.drawImage(img7h,intX,intY);
 			}else if(intCard == 8){
-				con.println("Eight of hearts");
+				con.drawImage(img8h,intX,intY);
 			}else if(intCard == 9){
-				con.println("Nine of hearts");
+				con.drawImage(img9h,intX,intY);
 			}else if(intCard == 10){
-				con.println("Ten of hearts");
+				con.drawImage(img10h,intX,intY);
 			}else if(intCard == 11){
-				con.println("Jack of hearts");
+				con.drawImage(img11h,intX,intY);
 			}else if(intCard == 12){
-				con.println("Queen of hearts");
+				con.drawImage(img12h,intX,intY);
 			}else if(intCard == 13){
-				con.println("King of hearts");
+				con.drawImage(img13h,intX,intY);
 			}
 			
 		}else if(intCardSuite == 3){
 			if(intCard == 1){
-				con.println("Ace of spades");
+				con.drawImage(img1s,intX,intY);
 				//con.loadImage
 			}else if(intCard == 2){
-				con.println("Two of spades");
+				con.drawImage(img2s,intX,intY);
 			}else if(intCard == 3){
-				con.println("Three of spades");
+				con.drawImage(img3s,intX,intY);
 			}else if(intCard == 4){
-				con.println("Four of spades");
+				con.drawImage(img4s,intX,intY);
 			}else if(intCard == 5){
-				con.println("Five of spades");
+				con.drawImage(img5s,intX,intY);
 			}else if(intCard == 6){
-				con.println("Six of spades");
+				con.drawImage(img6s,intX,intY);
 			}else if(intCard == 7){
-				con.println("Seven of spades");
+				con.drawImage(img7s,intX,intY);
 			}else if(intCard == 8){
-				con.println("Eight of spades");
+				con.drawImage(img8s,intX,intY);
 			}else if(intCard == 9){
-				con.println("Nine of spades");
+				con.drawImage(img9s,intX,intY);
 			}else if(intCard == 10){
-				con.println("Ten of spades");
+				con.drawImage(img10s,intX,intY);
 			}else if(intCard == 11){
-				con.println("Jack of spades");
+				con.drawImage(img11s,intX,intY);
 			}else if(intCard == 12){
-				con.println("Queen of spades");
+				con.drawImage(img12s,intX,intY);
 			}else if(intCard == 13){
-				con.println("King of spades");
+				con.drawImage(img13s,intX,intY);
 			}
 			
 		}
