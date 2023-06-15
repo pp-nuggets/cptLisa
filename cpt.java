@@ -26,6 +26,8 @@ public class cpt{
 		 
 		 
 	}
+	
+	//menu method
 	public static void menu(int intScore,Console con){
 		// Deck stuff
 		int intCount = 52;
@@ -57,6 +59,7 @@ public class cpt{
 		char chrChoice;
 		int intBet;
 		BufferedImage imgMenu = con.loadImage("menu.png");
+		TextOutputFile txtBetOut = new TextOutputFile("bet.txt");
 		
 		
 		con.drawImage(imgMenu,320,150);
@@ -77,7 +80,9 @@ public class cpt{
 			con.println("You have "+intScore);
 			con.println("Enter your bet");
 			intBet = con.readInt();
-			//make text folder for bet
+			//write in text folder for bet
+			txtBetOut.println(intBet);
+			txtBetOut.close();
 			con.drawImage(imgBG,1,1);
 			play(intHand,intScore, con);
 		}else if(chrChoice == 'h' || chrChoice == 'H'){
@@ -99,6 +104,7 @@ public class cpt{
 		int intSwitch4;
 		int intSwitch5;
 		String strChoice = "y";
+		TextInputFile txtBetIn = new TextInputFile("bet.txt");
 		//con.clear();
 		//con.println("0 = " + 
 		while(strChoice.equals("y")){
@@ -119,10 +125,15 @@ public class cpt{
 		intTimes = checkHand(intSortedHand, con);
 		//win or lose if statement
 		//read bet textfolder for bet
-		win(intBet, intTimes, con);
+		intBet = txtBetIn.readInt();
+		if(intTimes > 0){	
+			win(intBet, intTimes, con);
+		}else if(intTimes == 0){
+			lose(intBet, con);
+		}
 	}
 
-	// Player hand
+	// Play method
 	public static void play(int intHand[][], int intScore, Console con){
 		con.clear();
 		//con.setDrawColor(Color.BLACK);
@@ -144,7 +155,7 @@ public class cpt{
 			txtHand.println(intHand[intRow][0]);
 			txtHand.println(intHand[intRow][1]);
 			txtHand.println(intHand[intRow][2]);
-			//con.println("");
+			con.print(intRow +": ");
 			loadHand(intHand[intRow][0], intHand[intRow][1], con);
 			if(intHand[intRow][0] == 1){
 				con.print("Ace ");
@@ -189,55 +200,49 @@ public class cpt{
 		
 	}
 	
-	public static void highscore(Console con){
-		
-		TextInputFile txtScore = new TextInputFile("scores.txt");
-		
-	}
-	
+	// loading images into game
 	public static void loadHand(int intCard, int intCardSuite, Console con){
-		//con.println("Cards Loaded here");
 		
 		// load all 52 iamge cards
 		cptimages.images(intCardSuite, intCard, con);
-		
-		int intCount = 1;
-		//while(intCount < 100){
-		//	intCount = intCount+1;
-		//	con.sleep(30);
-		//}
+
 	}
 	
+	// Player inputs the card array value they want to change, new cards come from deck
 	public static int[][] switchCards(int intHand[][], int intSwitch, String strSortedDeck[][]){
+		
+		System.out.println("intSwitch is: "+intSwitch);
 		
 		if(intSwitch == 0){
 			intHand[0][0] = Integer.valueOf(strSortedDeck[5][0]);
 			intHand[0][1] = Integer.valueOf(strSortedDeck[5][1]);
+			return intHand;
 		}
 		if(intSwitch == 1){
 			intHand[1][0] = Integer.valueOf(strSortedDeck[6][0]);
 			intHand[1][1] = Integer.valueOf(strSortedDeck[6][1]);
+			return intHand;
 		}
 		if(intSwitch == 2){
 			intHand[2][0] = Integer.valueOf(strSortedDeck[7][0]);
 			intHand[2][1] = Integer.valueOf(strSortedDeck[7][1]);
+			return intHand;
 		}
 		if(intSwitch == 3){
 			intHand[3][0] = Integer.valueOf(strSortedDeck[8][0]);
 			intHand[3][1] = Integer.valueOf(strSortedDeck[8][1]);
+			return intHand;
 		}
 		if(intSwitch == 4){
 			intHand[4][0] = Integer.valueOf(strSortedDeck[9][0]);
 			intHand[4][1] = Integer.valueOf(strSortedDeck[9][1]);
+			return intHand;
 		}
-		if(intSwitch == 5){
-			intHand[5][0] = Integer.valueOf(strSortedDeck[10][0]);
-			intHand[5][1] = Integer.valueOf(strSortedDeck[10][1]);
-		}
-		return intHand;
 		
+		return intHand;
 	}
 	
+	// checking plays hand for wins
 	public static int checkHand(int intSortedHand[][], Console con){
 		int intRow = 0;
 		
@@ -246,11 +251,11 @@ public class cpt{
 			if(intSortedHand[intRow][0] == 11 && intSortedHand[intRow+1][0] == 11 && intSortedHand[intRow+2][0] == 11){
 				//triple jacks
 				con.println("triple jacks");
-				return 1;
+				return 3;
 			}else if(intSortedHand[intRow][0] == 12 && intSortedHand[intRow+1][0] == 12 && intSortedHand[intRow+2][0] == 12){
 				//double queens
 				con.println("triple queens");
-				return 2;
+				return 3;
 			}else if(intSortedHand[intRow][0] == 13 && intSortedHand[intRow+1][0] == 13 && intSortedHand[intRow+2][0] == 13){
 				//double king
 				con.println("triple kings");
@@ -258,7 +263,7 @@ public class cpt{
 			}else if(intSortedHand[intRow][0] == 1 && intSortedHand[intRow+1][0] == 1 && intSortedHand[intRow+2][0] == 1){
 				//double aces
 				con.println("double aces");
-				return 4;
+				return 3;
 			}
 		}
 		
@@ -268,19 +273,19 @@ public class cpt{
 			if(intSortedHand[intRow][0] == 11 && intSortedHand[intRow+1][0] == 11){
 				//double jacks
 				con.println("double jacks");
-				return 5;
+				return 1;
 			}else if(intSortedHand[intRow][0] == 12 && intSortedHand[intRow+1][0] == 12){
 				//double queens
 				con.println("double queens");
-				return 5;
+				return 1;
 			}else if(intSortedHand[intRow][0] == 13 && intSortedHand[intRow+1][0] == 13){
 				//double king
 				con.println("double kings");
-				return 5;
+				return 1;
 			}else if(intSortedHand[intRow][0] == 1 && intSortedHand[intRow+1][0] == 1){
 				//double aces
 				con.println("double aces");
-				return 5;
+				return 1;
 			}
 			
 			
@@ -291,22 +296,55 @@ public class cpt{
 		return 0;
 	}
 	
+	//win method
 	public static void win(int intBet, int intTimes, Console con){
 		int intScore;
-		TextInputFile txtScore = new TextInputFile("score.txt");
-		intScore = txtScore.readInt();
+		TextInputFile txtScoreIn = new TextInputFile("score.txt");
+		TextOutputFile txtHighscores = new TextOutputFile("highscores.txt");
+		intScore = txtScoreIn.readInt();
+		txtScoreIn.close();
+		TextOutputFile txtScoreOut = new TextOutputFile("score.txt");
 		
-		intScore = intBet*intTimes + intScore;
+		intScore = (intBet*intTimes) + intScore;
+		txtScoreOut.println(intScore);
+		txtScoreOut.close();
 		con.println("Your score is: " +intScore);
 		int intCount = 0;
 		while(intCount < 60){
 			intCount = intCount +1;
 			con.sleep(30);
 		}
-		menu(intScore,con);
+		String strChoice;
+		con.println("Play again? (y/n)");
+		strChoice = con.readLine();
+		if(strChoice.equals("y")){
+			menu(intScore,con);
+		}else if(strChoice.equals("n")){
+			con.clear();
+			con.println("End of game");
+		}
 	}
 	
+	//lose method
 	public static void lose(int intBet, Console con){
+		int intScore;
+		
+		con.println("You lose");
+		
+		TextInputFile txtBet = new TextInputFile("bet.txt");
+		intBet = txtBet.readInt();
+		txtBet.close();
+		
+		TextInputFile txtScoreIn = new TextInputFile("score.txt");
+		intScore = txtScoreIn.readInt();
+		txtScoreIn.close();
+		
+		intScore = intScore - intBet;
+		
+		TextOutputFile txtScoreOut = new TextOutputFile("score.txt");
+		txtScoreOut.println(intScore);
+		txtScoreOut.close();
+		
 		
 	}
 	
@@ -374,7 +412,7 @@ public class cpt{
 		return intDeck;
 	}
 		
-	
+	//loading the deck from a file
 	public static String[][] loadDeck(int intCount){
 		String strDeck[][];
 		strDeck = new String[intCount][3];
@@ -389,6 +427,7 @@ public class cpt{
 		return strDeck;
 	}
 	
+	//sorted deck to randomize
 	public static String[][] sortDeck(String strDeck[][], int intCount){
 		String strTemp;
 		int intCurrent;
@@ -416,6 +455,7 @@ public class cpt{
 		return strDeck;
 	}
 	
+	//printing deck into file
 	public static void printDeck(String strDeck[][], int intCount, Console con){
 		TextOutputFile txtSorted = new TextOutputFile("sorteddeck.txt");
 		int intCards = 52;
@@ -460,6 +500,7 @@ public class cpt{
 		return intHand;
 	}
 	
+	// printing sorted deck into file
 	public static void printSorteddeck(String strDeck[][], int intCount, Console con){
 		TextOutputFile txtSorted = new TextOutputFile("sorteddeck.txt");
 		int intCards = 52;
@@ -472,6 +513,7 @@ public class cpt{
 		}
 	}
 	
+	//printing sorted hand into file
 	public static void printSortedhand(int intSortedHand[][], Console con){
 		TextOutputFile txtSortedHand = new TextOutputFile("sortedhand.txt");
 		int intCount;
@@ -487,6 +529,7 @@ public class cpt{
 		}
 	}
 	
+	//creating hand array from deck array
 	public static int[][] hand(String strDeck[][]){
 		int intHand[][];
 		int intCount;
@@ -501,9 +544,10 @@ public class cpt{
 	return intHand;
 	}
 	
+	//printing score into highscore file
 	public static void printScore(String strName, int intBet, Console con){
 	TextOutputFile txtHighscore = new TextOutputFile("highscore.txt");
-	TextInputFile txtScore = new TextInputFile("scores.txt");
+	TextInputFile txtScore = new TextInputFile("score.txt");
 	int intScore;
 	intScore = txtScore.readInt();
 		
